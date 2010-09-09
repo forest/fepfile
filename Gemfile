@@ -1,0 +1,26 @@
+source "http://rubygems.org"
+
+gem "rake"
+gem "jeweler"
+gem "money"
+gem "activemodel"
+
+# gem "cucumber"
+# gem "aruba", ">= 0.2.0"
+# gem "autotest"
+# gem "watchr"
+# gem "rcov"
+# gem "mocha"
+# gem "rr"
+# gem "flexmock"
+# gem "nokogiri"
+# gem "syntax"
+# gem "rspec-core", :path => "."
+# gem "rspec-expectations", :path => "../rspec-expectations"
+# gem "rspec-mocks", :path => "../rspec-mocks"
+# case RUBY_VERSION
+# when /^1.9.1/
+#   gem "ruby-debug19"
+# when /^1.8/
+#   gem "ruby-debug"
+# end
