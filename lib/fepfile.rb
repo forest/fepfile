@@ -105,7 +105,7 @@ module FEPFileSpecification
     def save(file_path, file_name = nil)
       raise ValidationError, "FEPFile does not have all required data set: #{validation_errors.inspect}" unless valid?
       
-      name = file_name || "fepfile_%s.txt" % Time.now.strftime('%Y%m%d%H%M%S')
+      name = file_name || "%s_fepfile.txt" % Time.now.strftime('%Y%m%d%H%M%S')
       full_name = "#{file_path}/#{name}"
       
       open(full_name, "w+") do |file|
