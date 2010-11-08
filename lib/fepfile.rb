@@ -100,6 +100,20 @@ module FEPFileSpecification
         :total_credits_amount => grouped[:credit] ? grouped[:credit].inject(Money.empty) { |sum, record| sum += record.amount.to_money} : Money.empty)
     end
     
+    # Returns the FEP files as a string
+    def to_s
+      raise ValidationError, "FEPFile does not have all required data set: #{validation_errors.inspect}" unless valid?
+      
+      result = ""
+      result += file_comment_record.to_s+"\r\n" unless file_comment_record.nil?
+      result += file_header_record.to_s+"\r\n"
+      transaction_detail_records.each do |tdr|
+        result += tdr.to_s+"\r\n"
+      end
+      result += transaction_summary_record.to_s+"\r\n"
+      result
+    end
+    
     # Saves the file to the specified +file_path+ and +file_name+
     # If +file_name+ is not given then a timestamped name will be used
     def save(file_path, file_name = nil)
@@ -109,12 +123,7 @@ module FEPFileSpecification
       full_name = "#{file_path}/#{name}"
       
       open(full_name, "w+") do |file|
-        file.write(file_comment_record.to_s+"\r\n") unless file_comment_record.nil?
-        file.write(file_header_record.to_s+"\r\n")
-        transaction_detail_records.each do |tdr|
-          file.write(tdr.to_s+"\r\n")
-        end
-        file.write(transaction_summary_record.to_s+"\r\n")
+        file.write(self.to_s)
       end
       
       [full_name, true]
